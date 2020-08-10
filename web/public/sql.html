@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>node-sql-parser</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p><em>Check console to see the output</em></p>
+    <script src="https://unpkg.com/node-sql-parser/umd/mysql.umd.js"></script>
+    <script>
+      window.onload = function () {
+        // Example parser
+        const parser = new NodeSQLParser.Parser()
+        window.parser = parser
+        const ast = parser.astify("select id, name from students where age < 18")
+        console.log('parser.astify("select id, name from students where age < 18")');
+        console.log(JSON.stringify(ast), ast)
+        const sql = parser.sqlify(ast)
+        console.log(sql)
+
+        const ast2 = parser.astify('select id, name, sum(1) a1, sum(name) s1 from students left join sbb s on s.id = eee and s.id=e2 '
+            + 'join (select * from a) b on b.a = id where age < 18 group by s.id order by abc')
+        console.log(JSON.stringify(ast2), ast2)
+
+        const sql1 = JSON.parse('{"chartType":"line","dataSrc":"`crmeb`.`eb_store_visit`","filters":[],"limit":200,"orderByStrs":[],"selectedCalcul":[{"Column":"count","Type":"int(11)","availableFunc":[{"func":"sum","name":"合计"},{"func":"avg","name":"平均"},{"func":"max","name":"最大值"},{"func":"min","name":"最小值"},{"func":"count","name":"计数"},{"func":"none","name":"-"}],"calculFunc":"sum","lable":"count(合计)","name":"count"},{"Column":"type","Type":"char(50)","availableFunc":[{"func":"count","name":"计数"},{"func":"none","name":"-"}],"calculFunc":"count","lable":"type(计数)","name":"type"}],"selectedDimension":[{"Column":"product_id","Type":"int(11)","asxAxis":true,"id":1,"isDimension":true,"lable":"product_id","name":"product_id"}],"source_id":"8c2c7ff2-148b-4d1e-82e8-f7f7250c20b4"}')
+        console.log(sql1)
+      } 
+    </script>
+  </body>
+</html>
